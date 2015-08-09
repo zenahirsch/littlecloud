@@ -8,7 +8,7 @@ var Device = function (id, client) {
     this.id = function () {
         return id;
     };
-}
+};
 
 Device.prototype.id = null
 Device.prototype.client = null;
@@ -35,7 +35,6 @@ Device.prototype.output = function (percent, duration_ms) {
         }
     });
 };
-
 
 var Client = function (accessToken) {
     this.accessToken = function () {
