@@ -1,5 +1,13 @@
 var request = require('request');
 
+var handleResponse = function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+        console.log(body);
+    } else {
+        console.log(error);
+    }
+};
+
 var Device = function (id, client) {
     this.client = function () {
         return client;
@@ -27,13 +35,7 @@ Device.prototype.output = function (percent, duration_ms) {
         }
     };
 
-    request(options, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log(body);
-        } else {
-            console.log(error);
-        }
-    });
+    request(options, handleResponse);
 };
 
 var Client = function (accessToken) {
@@ -43,6 +45,17 @@ var Client = function (accessToken) {
 };
 
 Client.prototype.accessToken = null;
+Client.prototype.devices = function () {
+    var options = {
+        url: 'https://api-http.littlebitscloud.cc/devices',
+        headers: {
+            'Authorization': 'Bearer ' + this.accessToken(),
+            'Accept': 'application/vnd.littlebits.v2+json'  
+        }
+    };
+
+    request(options, handleResponse);
+};
 
 Client.prototype.makeDevice = function (id) {
     return new Device(id, this);
