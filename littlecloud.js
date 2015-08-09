@@ -1,5 +1,8 @@
 var request = require('request');
 
+var protocol = 'https';
+var host = 'api-http.littlebitscloud.cc';
+
 var handleResponse = function (error, response, body) {
     if (!error && response.statusCode === 200) {
         console.log(body);
@@ -22,7 +25,7 @@ Device.prototype.id = null
 Device.prototype.client = null;
 Device.prototype.output = function (percent, duration_ms) {
     var options = {
-        url: 'https://api-http.littlebitscloud.cc/devices/' + this.id() + '/output',
+        url: protocol + '://' + host + '/devices/' + this.id() + '/output',
         method: 'POST',
         json: true,
         body: {
@@ -47,7 +50,7 @@ var Client = function (accessToken) {
 Client.prototype.accessToken = null;
 Client.prototype.devices = function () {
     var options = {
-        url: 'https://api-http.littlebitscloud.cc/devices',
+        url: protocol + '://' + host + '/devices',
         headers: {
             'Authorization': 'Bearer ' + this.accessToken(),
             'Accept': 'application/vnd.littlebits.v2+json'  
