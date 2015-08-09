@@ -78,6 +78,7 @@ Client.prototype.makeDevice = function (id) {
     return new Device(id, this);
 };
 
+// export a new Client _______________________________________________________
 module.exports = function (accessToken) {
     return new Client(accessToken);
 };
