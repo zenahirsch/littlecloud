@@ -1,8 +1,10 @@
 var request = require('request');
 
+// request variables _________________________________________________________
 var protocol = 'https';
 var host = 'api-http.littlebitscloud.cc';
 
+// handle the response from a request ________________________________________
 var handleResponse = function (error, response, body) {
     if (!error && response.statusCode === 200) {
         console.log(body);
@@ -11,6 +13,7 @@ var handleResponse = function (error, response, body) {
     }
 };
 
+// DEVICE ____________________________________________________________________
 var Device = function (id, client) {
     this.client = function () {
         return client;
@@ -21,8 +24,13 @@ var Device = function (id, client) {
     };
 };
 
-Device.prototype.id = null
+// retrieve the ID of the device _____________________________________________
+Device.prototype.id = null;
+
+// retrieve the client of the device _________________________________________
 Device.prototype.client = null;
+
+// output some voltage on the given device ___________________________________
 Device.prototype.output = function (percent, duration_ms) {
     var options = {
         url: protocol + '://' + host + '/devices/' + this.id() + '/output',
@@ -41,13 +49,18 @@ Device.prototype.output = function (percent, duration_ms) {
     request(options, handleResponse);
 };
 
+
+// CLIENT ____________________________________________________________________
 var Client = function (accessToken) {
     this.accessToken = function () {
         return accessToken;
     };
 };
 
+// retrieve the access token _________________________________________________
 Client.prototype.accessToken = null;
+
+// return a list of the user’s devices _______________________________________
 Client.prototype.devices = function () {
     var options = {
         url: protocol + '://' + host + '/devices',
@@ -60,6 +73,7 @@ Client.prototype.devices = function () {
     request(options, handleResponse);
 };
 
+// make a Device object with given ID ________________________________________
 Client.prototype.makeDevice = function (id) {
     return new Device(id, this);
 };
