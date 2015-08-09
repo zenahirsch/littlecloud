@@ -1,0 +1,15 @@
+{
+  "name": "littlecloud",
+  "version": "1.0.0",
+  "description": "Library for communicating with littlebits cloudbit",
+  "main": "littlecloud.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "littlebits",
+    "cloudbit"
+  ],
+  "author": "Zena Hirsch <hirsch.zena@gmail.com>",
+  "license": "ISC"
+}
